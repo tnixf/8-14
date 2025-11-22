@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 8.8</title>
+
+</head>
+<body>
+    <script>
+        const countVowels = (word) => {
+            return word
+                    .toLowerCase()
+                    .split('')
+                    .filter(char => ['a', 'e', 'i', 'o', 'u']
+                    .includes(char))
+                    .length;
+        };
+
+    
+        const word = 'JavaScript';
+        const vowelCount = countVowels(word);
+        console.log(vowelCount);
+    </script>
+</body>
+</html>
