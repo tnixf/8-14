@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 12.8.1</title>
+    <style>
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px gray;
+            display: none;
+            width: 450px;
+            overflow: hidden;
+        }
+        .popup-content {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        .gift-icon {
+            font-size: 85px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .gift-text {
+            flex: 1;
+        }
+        .gift-title {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .popup-button {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="popup">
+        <div class="popup-content">
+            <div class="gift-icon" id="gift-icon">🎁</div>
+            <div class="gift-text">
+                <div class="gift-title" id="gift-title"></div>
+                <button class="popup-button" onclick="closePopup()">Отлично!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const giftArr = [
+            {
+                title: "Скидка 20% на первую покупку в нашем магазине!",
+                icon: "🎯"
+            },
+            {
+                title: "Скидка 10% на всё!",
+                icon: "💸"
+            },
+            {
+                title: "Подарок при первой покупке в нашем магазине!",
+                icon: "🎁"
+            },
+            {
+                title: "Бесплатная доставка для вас!",
+                icon: "🚚"
+            },
+            {
+                title: "Сегодня день больших скидок!",
+                icon: "🔥"
+            }
+        ];
+
+        function showPopup() {
+            const gift = giftArr[Math.floor(Math.random() * giftArr.length)];
+            document.getElementById('gift-title').textContent = gift.title;
+            document.getElementById('gift-icon').textContent = gift.icon;
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        setTimeout(showPopup, 3000);
+    </script>
+</body>
+</html>

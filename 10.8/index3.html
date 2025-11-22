@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10.8.3</title>
+</head>
+<body>
+    <ul id="priceList"></ul>
+    <button id="sortAsc">Сортировать по возрастанию</button>
+    <button id="sortDesc">Сортировать по убыванию</button>
+
+    <script>
+        const prices = [100, 500, 250, 750, 300];
+        const priceList = document.getElementById('priceList');
+        const sortAscButton = document.getElementById('sortAsc');
+        const sortDescButton = document.getElementById('sortDesc');
+
+        function displayPrices(priceArray) {
+            priceList.innerHTML = '';
+            priceArray.forEach(price => {
+                const listItem = document.createElement('li');
+                listItem.textContent = price;
+                priceList.appendChild(listItem);
+            });
+        }
+
+        function sortAscending() {
+            const sortedPrices = [...prices].sort((a, b) => a - b);
+            displayPrices(sortedPrices);
+        }
+
+        function sortDescending() {
+            const sortedPrices = [...prices].sort((a, b) => b - a);
+            displayPrices(sortedPrices);
+        }
+
+        sortAscButton.addEventListener('click', sortAscending);
+        sortDescButton.addEventListener('click', sortDescending);
+
+        displayPrices(prices);
+    </script>
+</body>
+</html>

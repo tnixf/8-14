@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 11.9.3</title>
+    <style>
+        #card {
+            width: 300px;
+            height: 180px;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+            background: red;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        
+        input:focus {
+            border-color: blue;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>Текст на карте:
+            <input type='text' id='cardText'  maxlength='400'>
+        </label>
+    </div>
+    
+    <div>
+        <label>Цвет карты:
+            <select id='cardColor'>
+                <option value='red'>Красный</option>
+                <option value='blue'>Синий</option>
+                <option value='green'>Зеленый</option>
+            </select>
+        </label>
+    </div>
+
+    <p id='card'>Карта</p>
+
+    <script>
+        const cardTextInput = document.getElementById('cardText');
+        const cardColorSelect = document.getElementById('cardColor');
+        const cardElement = document.getElementById('card');
+
+        cardTextInput.addEventListener('input', function() {
+            cardElement.textContent = this.value || 'Карта';
+        });
+
+        cardTextInput.addEventListener('focus', function() {
+            this.style.backgroundColor = 'pink';
+        });
+
+        cardTextInput.addEventListener('blur', function() {
+            this.style.backgroundColor = '';
+        });
+
+        cardColorSelect.addEventListener('change', function() {
+            cardElement.style.backgroundColor = this.value;
+        });
+    </script>
+</body>
+</html>

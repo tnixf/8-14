@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 9.10</title>
+
+</head>
+<body>
+    <script>
+        const cars = {
+            mercedes: {
+                name: "Mercedes",
+                doors: 4,
+                wheel: 4,
+                hp: 220,
+                isStarted: false,
+            },
+            bmw: {
+                name: "BMW",
+                doors: 4,
+                wheel: 4,
+                hp: 330,
+                isStarted: false,
+            },
+            audi: {
+                name: "AUDI",
+                doors: 4,
+                wheel: 4,
+                hp: 267,
+                isStarted: false,
+            },
+            };
+
+        const getCar = (carName) => {
+            if (cars[carName]) {
+                console.log(cars[carName]);
+            } else {
+                console.log("Авто не найдено");
+            }
+        };
+
+        getCar("bmw");
+    </script>
+</body>
+</html>

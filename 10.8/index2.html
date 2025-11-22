@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10.8.2</title>
+</head>
+<body>
+    <ul id="myList"></ul>
+    <button id="addButton">Добавить элемент</button>
+    <button id="removeButton">Удалить элемент</button>
+
+    <script>
+        const addButton = document.getElementById('addButton');
+        const removeButton = document.getElementById('removeButton');
+        const list = document.getElementById('myList');
+
+        addButton.addEventListener('click', function() {
+            const newItem = document.createElement('li');
+            newItem.textContent = 'Новый элемент списка';
+            list.appendChild(newItem);
+        });
+
+        removeButton.addEventListener('click', function() {
+            const lastItem = list.lastElementChild;
+            if (lastItem) {
+                list.removeChild(lastItem);
+            }
+        });
+    </script>
+</body>
+</html>

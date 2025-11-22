@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 12.8.2</title>
+
+    <style>
+        body {
+            background-color: lightgray;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .promo-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .promo-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .promo-input.success {
+            color: green;
+            border-color: green;
+        }
+        
+        .apply-btn {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .success-message {
+            color: green;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="promo-form">
+        <form id="promoForm">
+            <div class="input-group">
+                <input type="text" class="promo-input" id="promoInput" placeholder="ПРОМОКОД">
+                <button type="submit" class="apply-btn">Применить</button>
+            </div>
+            <div class="success-message" id="successMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        const promocodeObj = {
+            promocode: "PROM50",
+            gift: "Скидка 50%"
+        };
+
+        function getCookie() {
+            return document.cookie.split('; ').reduce((acc, item) => {
+                const [name, value] = item.split('=')
+                acc[name] = value
+                return acc
+            }, {})
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookie = getCookie();
+            if (cookie.promocode === promocodeObj.promocode) {
+                applyPromoSuccess();
+            }
+        });
+
+        document.getElementById('promoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = document.getElementById('promoInput');
+            const successMessage = document.getElementById('successMessage');
+            
+            if (input.value === promocodeObj.promocode) {
+                document.cookie = `promocode=${promocodeObj.promocode}; max-age=31536000`;
+                applyPromoSuccess();
+            } else {
+                input.classList.remove('success');
+                successMessage.style.display = 'none';
+            }
+        });
+
+        function applyPromoSuccess() {
+            const input = document.getElementById('promoInput');
+            const successMessage = document.getElementById('successMessage');
+            
+            input.value = promocodeObj.promocode;
+            input.classList.add('success');
+            successMessage.textContent = `Промокод применён. ${promocodeObj.gift.toLowerCase()}!`;
+            successMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

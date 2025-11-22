@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 11.9.2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор стоимости доставки</h1>
+    
+    <form class='deliveryForm'>
+        <div>
+            <label>Название товара:
+                <input type='text' name='productName'>
+            </label>
+        </div>
+        
+        <div>
+            <label>Вес товара (кг):
+                <input type='number' name='weight' step='0.1'>
+            </label>
+        </div>
+        
+        <div>
+            <label>Расстояние доставки (км):
+                <input type='number' name='distance'>
+            </label>
+        </div>
+        
+        <button type='submit'>Добавить товар</button>
+    </form>
+
+    <div class='error' id='errorMessage'></div>
+
+    <table class='product-table'>
+        <thead>
+            <tr>
+                <th>Название товара</th>
+                <th>Вес (кг)</th>
+                <th>Расстояние (км)</th>
+                <th>Стоимость доставки</th>
+            </tr>
+        </thead>
+        <tbody class='productsTableBody'>
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.querySelector('.deliveryForm');
+        const tableBody = document.querySelector('.productsTableBody');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function validateForm(productName, weight, distance) {
+            if (!productName.trim() || !weight || weight <= 0 || !distance || distance <= 0) {
+                errorMessage.textContent = 'Пожалуйста, введите корректные значения';
+                return false;
+            }
+            errorMessage.textContent = '';
+            return true;
+        }
+
+        function calculateDeliveryCost(weight, distance) {
+            return (weight * distance) / 10;
+        }
+
+        function addProductToTable(productName, weight, distance, deliveryCost) {
+            const row = document.createElement('tr');
+            
+            const nameCell = document.createElement('td');
+            nameCell.textContent = productName;
+            
+            const weightCell = document.createElement('td');
+            weightCell.textContent = weight;
+            
+            const distanceCell = document.createElement('td');
+            distanceCell.textContent = distance;
+            
+            const costCell = document.createElement('td');
+            costCell.textContent = `${deliveryCost.toFixed(2)} руб.`;
+            
+            row.appendChild(nameCell);
+            row.appendChild(weightCell);
+            row.appendChild(distanceCell);
+            row.appendChild(costCell);
+            
+            tableBody.appendChild(row);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const productName = form.productName.value;
+            const weight = parseFloat(form.weight.value);
+            const distance = parseFloat(form.distance.value);
+            
+            if (validateForm(productName, weight, distance)) {
+                const deliveryCost = calculateDeliveryCost(weight, distance);
+                addProductToTable(productName, weight, distance, deliveryCost);
+                
+                form.reset();
+            }
+        }
+
+        form.addEventListener('submit', handleSubmit);
+    </script>
+</body>
+</html>

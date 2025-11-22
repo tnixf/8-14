@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 11.9.1</title>
+</head>
+<body>
+    <form class='form'>
+        <h1>Форма опроса</h1>
+        <div>
+            <label>
+                Имя пользователя:
+                <input type='text' name='username'>
+                <span id='username-error' style="color:red"></span>
+            </label>
+        </div>
+            
+        <div>
+            <label>
+                Email:
+                <input type='email' name='email'>
+                <span id='email-error' style="color:red"></span>
+            </label>
+        </div>
+         
+        <div>
+            <label>
+                Пол:
+                <input type='radio' name='gender' value='Мужской'> Мужской
+                <input type='radio' name='gender' value='Женский'> Женский
+                <span id='gender-error' style="color:red"></span>
+            </label>
+        </div>
+            
+        <div>
+            <label>
+                Оценка сервиса:
+                <input type='range' name='rating' min='1' max='10'>
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Интересы пользователя:
+                <br><input type='checkbox' name='interests' value='Спорт'> Спорт
+                <br><input type='checkbox' name='interests' value='Музыка'> Музыка
+                <br><input type='checkbox' name='interests' value='Путешествия'> Путешествия
+                <br><input type='checkbox' name='interests' value='Кино'> Кино
+            </label>
+        </div>
+            
+        <div>
+            <label>
+                Дополнительные комментарии:
+                <br><textarea name='comments'></textarea>
+            </label>
+        </div>
+
+        <button type='submit'>Отправить</button>
+    </form>
+
+    <div class='result'></div>
+
+    <script>
+        const form = document.querySelector('.form');
+        const resultDiv = document.querySelector('.result');
+
+        const fieldLabels = {
+            'username': 'Имя пользователя',
+            'email': 'Email',
+            'gender': 'Пол',
+            'rating': 'Оценка сервиса',
+            'interests': 'Интересы пользователя',
+            'comments': 'Дополнительные комментарии'
+        };
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const username = form.username.value;
+            const email = form.email.value;
+            const gender = form.querySelector('input[name="gender"]:checked');
+            
+            document.querySelector('#username-error').textContent = '';
+            document.querySelector('#email-error').textContent = '';
+            document.querySelector('#gender-error').textContent = '';
+            
+            let hasError = false;
+            
+            if (!username) {
+                document.querySelector('#username-error').textContent = 'Заполните это поле';
+                hasError = true;
+            }
+            
+            if (!email) {
+                document.querySelector('#email-error').textContent = 'Заполните адрес email';
+                hasError = true;
+            }
+            
+            if (!gender) {
+                document.querySelector('#gender-error').textContent = 'Выберите пол';
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            const formData = new FormData(form);
+            let result = '<h2>Результаты опроса</h2>';
+            
+            const interests = [];
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'interests' && key !== 'comments') {
+                    result += `${fieldLabels[key]}: ${value}<br>`;
+                }
+                if (key === 'interests') {
+                    interests.push(value);
+                }
+            }
+            result += `${fieldLabels['interests']}: ${interests.length > 0 ? interests.join(', ') : ''}<br>`;
+            
+            for (let [key, value] of formData.entries()) {
+                if (key === 'comments') {
+                    result += `${fieldLabels[key]}: ${value}<br>`;
+                }
+            }
+            
+            resultDiv.innerHTML = result;
+        }
+
+
+        form.addEventListener('submit', handleSubmit);
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10.8.1</title>
+    <style>
+        .thumbnail {
+            width: 10%;
+            height: 10%;
+        }
+        .full-size-container {
+            width: 40%;
+            height: 40%;
+        }
+        .full-size-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <img src="1.jpg" class="thumbnail" id="thumb1">
+        <img src="2.jpg" class="thumbnail" id="thumb2">
+        <img src="3.jpg" class="thumbnail" id="thumb3">
+    </div>
+
+    <div class="full-size-container" id="fullSizeContainer"></div>
+
+    <script>
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const fullSizeContainer = document.getElementById('fullSizeContainer');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const imageUrl = this.getAttribute('src');
+                
+                fullSizeContainer.innerHTML = '';
+                
+                const fullSizeImage = document.createElement('img');
+                fullSizeImage.src = imageUrl;
+                fullSizeImage.alt = this.alt;
+                fullSizeImage.className = 'full-size-image';
+                
+                fullSizeContainer.appendChild(fullSizeImage);
+            });
+        });
+    </script>
+</body>
+</html>
